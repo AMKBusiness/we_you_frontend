@@ -14,9 +14,11 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.2",
+    "recharts": "^1.8.0",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "clsx": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

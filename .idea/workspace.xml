@@ -2,30 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b420dbd3-75ae-4768-a738-0f1255f4edc2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/we_you_frontend.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/actions/auth.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/auth/Signin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/auth/Signin.test.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/components/dashboard/Chart.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/dashboard/Dashboard.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/components/dashboard/Deposits.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/components/dashboard/Orders.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/components/dashboard/Title.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/components/dashboard/listItems.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/layout/Navbar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Signin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/auth.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/types.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/theme.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth/Signin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Signin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Signin.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,7 +45,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="8.10.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/auth" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -69,6 +58,9 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/components/auth" />
     </key>
@@ -109,8 +101,19 @@
       <workItem from="1569840864622" duration="2037000" />
       <workItem from="1570364876878" duration="11000" />
       <workItem from="1570482786236" duration="14683000" />
-      <workItem from="1570605882510" duration="1420000" />
+      <workItem from="1570605882510" duration="6347000" />
+      <workItem from="1571162239437" duration="7184000" />
+      <workItem from="1571231360109" duration="2187000" />
+      <workItem from="1571929901979" duration="1435000" />
     </task>
+    <task id="LOCAL-00001" summary="added login">
+      <created>1570607481349</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1570607481349</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -128,5 +131,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added login" />
+    <option name="LAST_COMMIT_MESSAGE" value="added login" />
   </component>
 </project>
