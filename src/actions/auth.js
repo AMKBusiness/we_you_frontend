@@ -9,6 +9,7 @@ export const login = (username, password) => dispatch => {
                 type: AUTHENTICATION_SUCCESS,
                 data: response.data.token,
             });
+            console.log(response);
         })
         .catch(response => {
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import Navbar from './components/layout/Navbar'
-import Signin from './pages/auth/Signin'
+import SignIn from './pages/auth/signIn'
+
 
 class App extends React.Component {
     render() {
       return (
-          <Signin/>
+          <SignIn />
       );
     }
 }

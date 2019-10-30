@@ -60,7 +60,7 @@ const styles = theme => ({
     },
 });
 
-class Signin extends React.Component {
+class SignIn extends React.Component {
 
     static propTypes = {
         classes: PropTypes.object.isRequired,
@@ -71,6 +71,10 @@ class Signin extends React.Component {
         this.state = {username: '', password: '', rememberMe: false}
     }
 
+    static getDerivedStateFromProps(props, state) {
+        if (props.isAuthenticated)
+            props.history.push("/dashboard/");
+    }
 
     onSubmit(event){
         event.preventDefault();
@@ -155,4 +159,4 @@ class Signin extends React.Component {
     }
 }
 
-export default connect(null, {login, rememberMe})(withStyles(styles)(Signin));
+export default connect(state => ({isAuthenticated: state.auth.isAuthenticated}), {login, rememberMe})(withStyles(styles)(SignIn));
