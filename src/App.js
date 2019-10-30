@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './components/layout/Navbar'
-import Signin from './components/auth/Signin'
+import Signin from './pages/auth/Signin'
 
 class App extends React.Component {
     render() {
