@@ -22,4 +22,4 @@ export const rememberMe = (rememberMe) => dispatch => {
         type: AUTHENTICATION_REMEMBER,
         data: rememberMe
     })
-}
+};
