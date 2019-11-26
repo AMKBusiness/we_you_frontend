@@ -4,7 +4,6 @@ import { Route, Switch } from "react-router-dom";
 
 import SignIn from './pages/SignIn'
 
-
 class App extends React.Component {
     render() {
         return (
@@ -12,9 +11,6 @@ class App extends React.Component {
                 <Route path="/login/" >
                     <SignIn/>
                 </Route>
-                <Route path="/dashboard/">
-                </Route>
-
             </Switch>
         );
     }
