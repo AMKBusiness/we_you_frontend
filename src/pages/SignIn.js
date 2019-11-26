@@ -28,31 +28,6 @@ import Copyright from "../components/Copyright";
 import {login, rememberMe} from '../actions/auth'
 
 
-const styles = theme => ({
-    '@global': {
-        body: {
-            backgroundColor: theme.palette.common.white,
-        },
-    },
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-});
-
 class SignIn extends React.Component {
 
     static propTypes = {
@@ -75,9 +50,11 @@ class SignIn extends React.Component {
 
     }
 
-    static getDerivedStateFromProps(props) {
+    static getDerivedStateFromProps(props, state) {
         if (props.isAuthenticated)
-            return props.history.push("/dashboard/");
+            props.history.push("/main/dashboard/");
+
+        return state;
     }
 
     render() {
@@ -128,7 +105,7 @@ class SignIn extends React.Component {
                                     defaultChecked={false}
                                     onChange={event => this.setState({rememberMe: event.target.checked})}
                                     value="remember"
-                                    color="primary"
+                                    color="secondary"
                                 />
                             }
                             label="Remember me"
@@ -161,5 +138,25 @@ const mapDispatchToProps = {
     login,
     rememberMe
 };
+
+const styles = theme => ({
+    paper: {
+        display: 'flex',
+        marginTop: theme.spacing(8),
+        alignItems: 'center',
+        flexDirection: 'column',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(SignIn)));
