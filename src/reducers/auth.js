@@ -1,6 +1,12 @@
 import {AUTHENTICATION_REMEMBER, AUTHENTICATION_SUCCESS} from "./types";
 
-const initialState = {isAuthenticated: false, rememberPassword: false};
+const initialState = {
+    isAuthenticated: (
+        localStorage.getItem("token") !== null ||
+        sessionStorage.getItem("token") !== null
+    ),
+    rememberPassword: localStorage.getItem("token") !== null,
+};
 
 
 export default function(state = initialState, action){
