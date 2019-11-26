@@ -4,7 +4,6 @@ import { Redirect, Route, Switch } from "react-router-dom";
 
 import SignIn from './pages/SignIn'
 
-
 class App extends React.Component {
     render() {
         return (
