@@ -1,38 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import {withStyles} from "@material-ui/core/styles";
-import {BrowserRouter} from "react-router-dom";
+import {connect} from "react-redux";
+import {withRouter} from 'react-router';
+
+import {
+
+    withStyles,
+
+    Box,
+    Avatar,
+    Button,
+    Checkbox,
+    Container,
+    TextField,
+    Typography,
+    CssBaseline,
+    FormControlLabel,
+
+} from "@material-ui/core";
+
+import {LockOutlined} from '@material-ui/icons';
+
+
+import Copyright from "../components/Copyright";
 
 import {login, rememberMe} from '../actions/auth'
-import {connect} from "react-redux";
-import {AUTHENTICATION_REMEMBER} from "../reducers/types";
-
-class Copyright extends React.Component {
-    render() {
-        return (
-            <Typography variant="body2" color="textSecondary" align="center">
-                {'Copyright © '}
-                <Link color="inherit" href="https://home4talent.nl/">
-                    Home4Talent
-                </Link>{' '}
-                {new Date().getFullYear()}
-                {'.'}
-            </Typography>
-        );
-    }
-}
 
 
 const styles = theme => ({
@@ -71,12 +64,7 @@ class SignIn extends React.Component {
         this.state = {username: '', password: '', rememberMe: false}
     }
 
-    static getDerivedStateFromProps(props, state) {
-        if (props.isAuthenticated)
-            props.history.push("/dashboard/");
-    }
-
-    onSubmit(event){
+    onSubmit(event) {
         event.preventDefault();
 
         const username = this.state.username;
@@ -87,45 +75,51 @@ class SignIn extends React.Component {
 
     }
 
-
+    static getDerivedStateFromProps(props) {
+        if (props.isAuthenticated)
+            return props.history.push("/dashboard/");
+    }
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
 
         return (
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
+                <CssBaseline/>
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
+                        <LockOutlined />
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
                     <form className={classes.form} noValidate>
                         <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
+                            required={true}
+                            fullWidth={true}
+                            autoFocus={true}
+
                             id="email"
-                            label="Email Address"
                             name="email"
+                            label="Email Address"
+                            margin="normal"
+                            variant="outlined"
                             autoComplete="email"
-                            autoFocus
-                            onChange={event=>this.setState({username: event.target.value})}
+
+                            onChange={event => this.setState({username: event.target.value})}
                         />
                         <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
+                            required={true}
+                            fullWidth={true}
+
+                            id="password"
+                            type="password"
                             name="password"
                             label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            onChange={event=>this.setState({password: event.target.value})}
+                            margin="normal"
+                            variant="outlined"
+
+                            onChange={event => this.setState({password: event.target.value})}
 
                         />
                         <FormControlLabel
@@ -149,14 +143,23 @@ class SignIn extends React.Component {
                         >
                             Sign In
                         </Button>
-                        </form>
+                    </form>
                 </div>
                 <Box mt={8}>
-                    <Copyright />
+                    <Copyright/>
                 </Box>
             </Container>
         );
     }
 }
 
-export default connect(state => ({isAuthenticated: state.auth.isAuthenticated}), {login, rememberMe})(withStyles(styles)(SignIn));
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+const mapDispatchToProps = {
+    login,
+    rememberMe
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(SignIn)));

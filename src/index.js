@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {ThemeProvider} from '@material-ui/styles'
+import {Router} from "react-router-dom";
 import {Provider} from "react-redux";
-import {BrowserRouter} from "react-router-dom";
+import {ThemeProvider} from '@material-ui/styles';
 
 import App from './App';
 
@@ -14,9 +14,9 @@ import history from "./history";
 ReactDOM.render(
     <Provider store={store}>
         <ThemeProvider theme={theme}>
-            <BrowserRouter history={history} >
-                < App/>
-            </BrowserRouter>
+            <Router history={history} >
+                <App />
+            </Router>
         </ThemeProvider>
     </Provider>
     ,

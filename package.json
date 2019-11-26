@@ -21,7 +21,8 @@
     "recharts": "^1.8.0",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "@material-ui/styles": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
