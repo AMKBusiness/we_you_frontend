@@ -15,9 +15,9 @@ import Container from '@material-ui/core/Container';
 import {withStyles} from "@material-ui/core/styles";
 import {BrowserRouter} from "react-router-dom";
 
-import {login, rememberMe} from '../../actions/auth'
+import {login, rememberMe} from '../actions/auth'
 import {connect} from "react-redux";
-import {AUTHENTICATION_REMEMBER} from "../../reducers/types";
+import {AUTHENTICATION_REMEMBER} from "../reducers/types";
 
 class Copyright extends React.Component {
     render() {

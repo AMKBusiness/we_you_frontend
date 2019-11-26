@@ -2,18 +2,17 @@ import React from 'react';
 
 import { Route, Switch } from "react-router-dom";
 
-import Signin from './pages/Signin'
-import Dashboard from "./pages/Dashboard";
+import SignIn from './pages/SignIn'
+
 
 class App extends React.Component {
     render() {
         return (
             <Switch>
                 <Route path="/login/" >
-                    <Signin/>
+                    <SignIn/>
                 </Route>
                 <Route path="/dashboard/">
-                    <Dashboard/>
                 </Route>
 
             </Switch>
