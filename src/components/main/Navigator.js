@@ -16,14 +16,16 @@ import {
 
 } from "@material-ui/core";
 
-import {set_route} from "../actions/page";
+import styles from "../../styles/main/navigator";
+
+import {set_route} from "../../actions/page";
 
 
 class Navigator extends React.Component {
 
     render() {
-        const {classes, set_route, active, pages, ...args} = this.props;
-
+        const {classes, set_route, active, pages, gid, ...args} = this.props;
+        console.log("GID", gid);
         return (
             <Drawer variant="permanent" {...args}>
                 <List disablePadding>
@@ -42,7 +44,7 @@ class Navigator extends React.Component {
                             </ListItem>
 
                             {
-                                children.map(({name, page, icon}, id) => (
+                                children.filter(c => c.groups.includes(gid)).map(({name, page, icon}, id) => (
                                     <ListItem
                                         key={id}
                                         button
@@ -69,6 +71,7 @@ class Navigator extends React.Component {
 }
 
 Navigator.propTypes = {
+    gid: PropTypes.number.isRequired,
     pages: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
     active: PropTypes.string.isRequired,
@@ -78,6 +81,7 @@ Navigator.propTypes = {
 };
 
 const mapStateToProps = state => ({
+    gid: state.user.group,
     active: state.page.route,
 });
 
@@ -85,46 +89,5 @@ const mapDispatchToProps = {
     set_route,
 };
 
-
-const styles = theme => ({
-    categoryHeader: {
-        paddingTop: theme.spacing(2),
-        paddingBottom: theme.spacing(2),
-    },
-    categoryHeaderPrimary: {
-        color: theme.palette.common.white,
-    },
-    item: {
-        paddingTop: 1,
-        paddingBottom: 1,
-        color: 'rgba(255, 255, 255, 0.7)',
-        '&:hover,&:focus': {
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-        },
-    },
-    itemCategory: {
-        backgroundColor: '#232f3e',
-        boxShadow: '0 -1px 0 #404854 inset',
-        paddingTop: theme.spacing(2),
-        paddingBottom: theme.spacing(2),
-    },
-    firebase: {
-        fontSize: 24,
-        color: theme.palette.common.white,
-    },
-    itemActiveItem: {
-        color: '#4fc3f7',
-    },
-    itemPrimary: {
-        fontSize: 'inherit',
-    },
-    itemIcon: {
-        minWidth: 'auto',
-        marginRight: theme.spacing(2),
-    },
-    divider: {
-        marginTop: theme.spacing(2),
-    },
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Navigator));

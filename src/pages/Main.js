@@ -1,4 +1,5 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
 import {withRouter} from "react-router";
@@ -9,9 +10,12 @@ import {default as withWidth, isWidthUp} from "@material-ui/core/withWidth";
 
 import {actions, labels, pages} from "../pages";
 
-import Header from "../components/Header";
-import Copyright from "../components/Copyright";
-import Navigator from "../components/Navigator";
+import styles from "../styles/main/page";
+import Header from "../components/main/Header";
+import Copyright from "../components/main/Copyright";
+import Navigator from "../components/main/Navigator";
+
+import {initialize_user} from "../actions/user";
 
 
 class Main extends React.Component {
@@ -36,6 +40,9 @@ class Main extends React.Component {
     static getDerivedStateFromProps(props, state) {
         if (!props.isAuthenticated)
             props.history.push("/login/");
+
+        if (!props.isInitialized)
+            props.initialize_user();
 
         return state;
     }
@@ -95,42 +102,20 @@ class Main extends React.Component {
     }
 }
 
+Main.propTypes = {
+    route: PropTypes.string.isRequired,
+    isInitialized: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+};
+
 const mapStateToProps = state => ({
     route: state.page.route,
+    isInitialized: state.user.id !== null,
     isAuthenticated: state.auth.isAuthenticated,
 });
 
-const mapDispatchToProps = {};
-
-const styles = theme => ({
-    root: {
-        display: 'flex',
-        minHeight: '100vh',
-    },
-
-    main: {
-        flex: 1,
-        padding: theme.spacing(4, 4),
-        background: '#eaeff1',
-    },
-
-    drawer: {
-        [theme.breakpoints.up("sm")]: {
-            width: 256,
-            flexShrink: 0,
-        },
-    },
-
-    footer: {
-        padding: theme.spacing(2),
-        background: '#eaeff1',
-    },
-
-    structure: {
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-    }
-});
+const mapDispatchToProps = {
+    initialize_user,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter(withWidth()(Main))));

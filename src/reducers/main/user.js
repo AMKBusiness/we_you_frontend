@@ -1,4 +1,4 @@
-import {AUTHENTICATION_RESTORE, SET_CURRENT_USER} from "../reducers/types";
+import {AUTHENTICATION_RESTORE, SET_CURRENT_USER} from "../types";
 
 const initialState = {
     id: null,

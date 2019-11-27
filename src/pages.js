@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Settings, People, Home } from "@material-ui/icons";
+import { Settings, Business, Home } from "@material-ui/icons";
 
+import groups from "./groups";
 
 export const pages = [
     {
@@ -11,14 +12,37 @@ export const pages = [
                 name: 'Dashboard',
                 page: "dashboard",
                 icon: <Home />,
+                groups: [
+                    groups.admin,
+                    groups.employee,
+                    groups.employer,
+                    groups.management,
+                ],
                 actions: [
 
                 ]
             },
+
             {
                 name: 'Bedrijf',
                 page: "company",
-                icon: <People />,
+                icon: <Business />,
+                groups: [
+                    groups.employer,
+                    groups.employee,
+                ],
+                actions: [
+                ]
+            },
+
+            {
+                name: 'Bedrijven',
+                page: "companies",
+                icon: <Business />,
+                groups: [
+                    groups.admin,
+                    groups.management,
+                ],
                 actions: [
                     {label: "Bedrijven overzicht", value: "digest"},
                     {label: "Bedrijf aanmaken", value: "create"},
@@ -33,6 +57,12 @@ export const pages = [
                 name: 'Instellingen',
                 page: "settings",
                 icon: <Settings />,
+                groups: [
+                    groups.admin,
+                    groups.employee,
+                    groups.employer,
+                    groups.management,
+                ],
                 actions: [
 
                 ]
