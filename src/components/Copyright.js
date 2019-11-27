@@ -11,6 +11,7 @@ class Copyright extends React.Component {
                 <Link color="inherit" href="https://home4talent.nl/">
                     Home4Talent
                 </Link>
+                &#160;
                 {new Date().getFullYear()}.
             </Typography>
         );

@@ -1,4 +1,4 @@
-import {AUTHENTICATION_REMEMBER, AUTHENTICATION_SUCCESS} from "./types";
+import {AUTHENTICATION_REMEMBER, AUTHENTICATION_SUCCESS, AUTHENTICATION_RESTORE} from "./types";
 
 const initialState = {
     isAuthenticated: (
@@ -13,6 +13,14 @@ export default function(state = initialState, action){
     if (action.type === AUTHENTICATION_REMEMBER){
         return{...state, rememberPassword: action.data}
     }
+
+    if (action.type === AUTHENTICATION_RESTORE){
+        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
+
+        return{...state, isAuthenticated: false}
+    }
+
     if (action.type === AUTHENTICATION_SUCCESS){
 
         if (state.rememberPassword)
@@ -22,6 +30,8 @@ export default function(state = initialState, action){
 
         return{...state, isAuthenticated: true}
     }
+
+
     return state;
 
 }
