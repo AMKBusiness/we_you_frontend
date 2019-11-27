@@ -3,24 +3,9 @@ import PropTypes from 'prop-types';
 import { createMuiTheme, MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import Navigator from '../components/Navigator';
-import Content from '../paperbase/Content';
 import Header from '../components/Header';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://www.home4talent.nl/">
-        Home4Talent
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Copyright from "../components/Copyright";
 
 let theme = createMuiTheme({
   palette: {
@@ -189,7 +174,7 @@ function Dashboard(props) {
         <div className={classes.app}>
           <Header onDrawerToggle={handleDrawerToggle} />
           <main className={classes.main}>
-            <Content />
+            {/*<Content />*/}
           </main>
           <footer className={classes.footer}>
             <Copyright />
