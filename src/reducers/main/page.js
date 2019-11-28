@@ -1,4 +1,4 @@
-import {SET_CURRENT_ROUTE, SET_CURRENT_ACTION} from "./types";
+import {SET_CURRENT_ROUTE, SET_CURRENT_ACTION} from "../types";
 
 const initialState = {
     route: "dashboard",

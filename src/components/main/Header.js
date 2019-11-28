@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
 import {withStyles} from '@material-ui/core/styles';
-
 import {ExitToApp, Menu} from "@material-ui/icons";
 
 import {
@@ -18,8 +17,10 @@ import {
     Tab,
 } from "@material-ui/core";
 
-import {logout} from "../actions/auth";
-import {set_action} from "../actions/page";
+import styles from "../../styles/main/header";
+
+import {logout} from "../../actions/auth";
+import {set_action} from "../../actions/page";
 
 
 class Header extends React.Component {
@@ -116,56 +117,5 @@ const mapDispatchToProps = {
     logout,
     set_action,
 };
-
-const lightColor = 'rgba(255, 255, 255, 0.7)';
-
-const styles = theme => ({
-    secondaryBar: {
-        zIndex: 0,
-    },
-    menuButton: {
-        marginLeft: -theme.spacing(1),
-    },
-    iconButtonAvatar: {
-        padding: 4,
-    },
-    link: {
-        color: lightColor,
-        textDecoration: 'none',
-
-        '&:hover': {
-            color: theme.palette.common.white,
-        },
-    },
-    button: {
-        borderColor: lightColor,
-    },
-
-    overrides: {
-        MuiTabs: {
-            root: {
-                marginLeft: theme.spacing(1),
-            },
-            indicator: {
-                height: 3,
-                backgroundColor: theme.palette.common.white,
-                borderTopLeftRadius: 3,
-                borderTopRightRadius: 3,
-            },
-        },
-        MuiTab: {
-            root: {
-                margin: '0 16px',
-                padding: 0,
-                minWidth: 0,
-                textTransform: 'none',
-                [theme.breakpoints.up('md')]: {
-                    padding: 0,
-                    minWidth: 0,
-                },
-            },
-        },
-    },
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Header));

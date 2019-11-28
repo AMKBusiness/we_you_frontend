@@ -1,5 +1,5 @@
 
-import {SET_THEME_COLORS, RESTORE_MAIN_THEME} from "./types";
+import {SET_THEME_COLORS, RESTORE_MAIN_THEME} from "../types";
 
 const initialState = {
     color: {
