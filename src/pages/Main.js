@@ -14,7 +14,6 @@ import styles from "../styles/main/page";
 import Header from "../components/main/Header";
 import Copyright from "../components/main/Copyright";
 import Navigator from "../components/main/Navigator";
-import GeneralChart from "../components/generalChart";
 
 import {initialize_user} from "../actions/user";
 
@@ -84,7 +83,7 @@ class Main extends React.Component {
 
                         <Switch>
                             <Route path="/main/dashboard/">
-                                <GeneralChart />
+                                Hello world
                             </Route>
 
                             <Route path="/main/company/">
