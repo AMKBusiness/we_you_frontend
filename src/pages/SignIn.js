@@ -23,7 +23,7 @@ import {
 import {LockOutlined} from '@material-ui/icons';
 
 
-import Copyright from "../components/Copyright";
+import Copyright from "../components/main/Copyright";
 
 import {login, rememberMe} from '../actions/auth'
 

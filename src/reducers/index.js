@@ -1,9 +1,9 @@
 import {combineReducers} from "redux";
 
-import auth from "./auth";
-import user from "./user";
-import page from "./page";
-import theme from "./theme";
+import auth from "./main/auth";
+import user from "./main/user";
+import page from "./main/page";
+import theme from "./main/theme";
 
 export default combineReducers({
     auth,

@@ -1,12 +1,6 @@
 import axios from "axios";
-import { SET_CURRENT_USER } from "../reducers/types";
 
-export const groups = Object.freeze({
-    admin: 1,
-    management: 2,
-    employer: 3,
-    employee: 4,
-});
+import { SET_CURRENT_USER } from "../reducers/types";
 
 
 export const initialize_user = () => dispatch => {
