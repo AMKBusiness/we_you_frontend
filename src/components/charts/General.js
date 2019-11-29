@@ -1,5 +1,9 @@
 import React from 'react';
 
+import {connect} from 'react-redux';
+
+import {set_dashboard_data} from "../../actions/charts";
+
 import Chart, {
     ArgumentAxis,
     Label,
@@ -11,16 +15,24 @@ import Chart, {
     ConstantLine,
 } from 'devextreme-react/chart';
 
-import {chartData}  from '../actions/chartData';
+import {charts}  from '../../actions/charts';
 
 
 
-class App extends React.Component {
+class General extends React.Component {
+
+    static getDerivedStateFromProps(props, state) {
+        if (!props.loaded)
+            props.set_dashboard_data();
+
+        return state;
+    }
+
     render() {
         return (
             <Chart
                 title="Grafiek"
-                dataSource={chartData}
+                dataSource={this.props.content}
                 id="chart">
 
                 <ValueAxis
@@ -62,5 +74,13 @@ class App extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+    loaded: state.dashboard.charts.loaded,
+    content: state.dashboard.charts.content,
+});
 
-export default App;
+const mapDispatchToProps = {
+    set_dashboard_data,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(General);
