@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 
 class ActionSelector extends React.Component {
     render() {
-        if (this.props.action === this.props.current || this.props.current === "default" && this.props.default)
+        if (this.props.action === this.props.current || (this.props.current === "default" && this.props.default))
             return this.props.children;
 
         return <React.Fragment />
