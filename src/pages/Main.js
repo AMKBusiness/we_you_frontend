@@ -14,6 +14,9 @@ import styles from "../styles/main/page";
 import Header from "../components/main/Header";
 import Copyright from "../components/main/Copyright";
 import Navigator from "../components/main/Navigator";
+import ActionSelector from "../components/utils/ActionSelector";
+
+import {CompaniesCreate, CompaniesDigest} from "../components/companies";
 
 import { GeneralChart } from "../components/charts";
 
@@ -88,9 +91,16 @@ class Main extends React.Component {
                                 <GeneralChart />
                             </Route>
 
-                            <Route path="/main/company/">
-                                Hello world
+                            <Route path="/main/companies/">
+                                <ActionSelector action="create">
+                                    <CompaniesCreate />
+                                </ActionSelector>
+
+                                <ActionSelector action="digest" default={true}>
+                                    <CompaniesDigest />
+                                </ActionSelector>
                             </Route>
+
                         </Switch>
                     </main>
 
