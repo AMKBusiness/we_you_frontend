@@ -25,7 +25,7 @@ class Navigator extends React.Component {
 
     render() {
         const {classes, set_route, active, pages, gid, ...args} = this.props;
-        console.log("GID", gid);
+
         return (
             <Drawer variant="permanent" {...args}>
                 <List disablePadding>
