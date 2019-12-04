@@ -15,23 +15,66 @@ import {
 
 const _emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
 
+
 class Staff extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            cache: props.members,
+        }
+    }
+
     onCreate() {
         const {add_staff_member, type} = this.props;
 
+        this.addCached();
         add_staff_member(type)
     }
 
     onDelete(index) {
         const {del_staff_member, type} = this.props;
 
+        this.delCached(index);
         del_staff_member(type, index)
     }
 
     onChange(index, value) {
         const {set_staff_member, type} = this.props;
 
+        this.setCached(index, value);
         set_staff_member(type, index, value)
+    }
+
+
+    addCached() {
+        this.setState(state => ({
+            ...state, cache: [...state.cache, null]
+        }))
+    }
+
+    delCached(index) {
+        this.setState(state => ({
+            ...state, cache: [
+                ...state.cache.slice(0, index),
+                ...state.cache.slice(index + 1)
+            ]
+        }))
+    }
+
+    setCached(index, value) {
+        this.setState(state => ({
+            ...state, cache: [
+                ...state.cache.slice(0, index),
+                value,
+                ...state.cache.slice(index + 1)
+            ]
+        }))
+    }
+
+    dump(index, value) {
+        if (this.validated(index, value))
+            this.onChange(index, value);
     }
 
     validated(index, value) {
@@ -64,24 +107,23 @@ class Staff extends React.Component {
                     <CardContent>
                         <Grid container spacing={1}>
                             {
-                                this.props.members.map((value, index) => (
+                                this.state.cache.map((value, index) => (
                                     <React.Fragment key={index}>
 
                                         <Grid item xs={10}>
                                             <TextField
-                                                style={{width: "100%"}}
-                                                onBlur={({target}) => (
-                                                    this.validated(index, target.value)
-                                                    &&
-                                                    this.onChange(index, target.value)
-                                                )}
-                                                defaultValue={value || ""}
-
+                                                value={value || ""}
                                                 error={Array.isArray(this.props.errors[index])}
+
+                                                onBlur={({target}) => (this.dump(index, target.value))}
+                                                onChange={({target}) => this.setCached(index, target.value)}
+
                                                 helperText={
                                                     Array.isArray(this.props.errors[index])
                                                         ? this.props.errors[index].join("\n") : ""
                                                 }
+
+                                                fullWidth={true}
                                             />
                                         </Grid>
 

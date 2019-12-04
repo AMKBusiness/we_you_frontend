@@ -1,16 +1,36 @@
 import React from 'react'
 import * as PropTypes from 'prop-types'
 
-import {Close} from "@material-ui/icons";
-import {withStyles} from "@material-ui/core";
-import {ColorWrap, Saturation, Hue, Checkboard} from 'react-color/lib/components/common'
-import {DialogActions, DialogContent, DialogTitle, TextField, IconButton, Button, Dialog} from "@material-ui/core";
-
 import color from 'react-color/lib/helpers/color';
 import ChromePointer from 'react-color/lib/components/chrome/ChromePointer'
 import ChromePointerCircle from 'react-color/lib/components/chrome/ChromePointerCircle'
 
+import {connect} from "react-redux";
+
+import {
+    Hue,
+    ColorWrap,
+    Checkboard,
+    Saturation,
+} from 'react-color/lib/components/common'
+
+import {Close} from "@material-ui/icons";
+import {withStyles} from "@material-ui/styles";
+
+import {
+    Button,
+    Dialog,
+    TextField,
+    IconButton,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+} from "@material-ui/core";
+
+
 import styles from "../../../styles/companies/colour-form";
+
+import {set_colour} from "../../../actions/companies";
 
 
 class Palette extends React.Component {
@@ -88,7 +108,7 @@ export class ChromePaletteDialog extends React.Component {
             stored: state.active,
         }));
 
-        this.props.onChange(this.state.active);
+        this.props.set_colour(this.props.spectrum, this.state.active);
     }
 
     onClose() {
@@ -146,7 +166,7 @@ export class ChromePaletteDialog extends React.Component {
 }
 
 ChromePaletteDialog.propTypes = {
-    onChange: PropTypes.func,
+    spectrum: PropTypes.string.isRequired,
     defaultColour: PropTypes.string,
 };
 
@@ -154,4 +174,19 @@ ChromePaletteDialog.defaultProps = {
     defaultColour: "#22194D",
 };
 
-export default withStyles(styles)(ChromePaletteDialog);
+ChromePaletteDialog = withStyles(styles)(ChromePaletteDialog);
+
+export const PrimaryColourDialog = connect(
+    state => ({defaultColour: state.companies.create.theme.primary}), {set_colour}
+)(
+    props => (
+        React.createElement(ChromePaletteDialog, {...props, spectrum: "primary"})
+    )
+);
+
+export const AccentColourDialog = connect(
+    state => ({defaultColour: state.companies.create.theme.accent}), {set_colour}
+)(
+    props => (
+        React.createElement(ChromePaletteDialog, {...props, spectrum: "accent"}))
+);

@@ -1,13 +1,11 @@
 import React from 'react';
-import * as PropTypes from 'prop-types';
 
-import {connect} from 'react-redux';
 import {CardContent, CardHeader, Card, Grid} from "@material-ui/core";
 
-import {ColourDialogForm, LogoForm, NameForm, Submit} from "./forms";
+import {LogoForm, NameForm, Submit} from "./forms";
 
-import {set_colour} from "../../actions/companies";
 import {EmployeesForm, EmployersForm} from "./forms/Staff";
+import {PrimaryColourDialog, AccentColourDialog} from "./forms/Colour";
 
 
 class Create extends React.Component {
@@ -37,10 +35,7 @@ class Create extends React.Component {
                                         <b>Primaire kleur</b>
                                     </Grid>
                                     <Grid item xs={8}>
-                                        <ColourDialogForm
-                                            onChange={c => this.props.set_colour("primary", c)}
-                                            defaultColour={this.props.theme.primary}
-                                        />
+                                        <PrimaryColourDialog />
                                     </Grid>
                                 </Grid>
 
@@ -49,10 +44,7 @@ class Create extends React.Component {
                                         <b>Secundaire kleur</b>
                                     </Grid>
                                     <Grid item xs={8}>
-                                        <ColourDialogForm
-                                            onChange={c => this.props.set_colour("accent", c)}
-                                            defaultColour={this.props.theme.accent}
-                                        />
+                                        <AccentColourDialog />
                                     </Grid>
                                 </Grid>
                             </CardContent>
@@ -80,12 +72,4 @@ class Create extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    theme: PropTypes.object.isRequired,
-});
-
-const mapDispatchToProps = {
-    set_colour,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Create);
+export default Create;

@@ -74,7 +74,7 @@ export default function(state = initialState, action) {
             ...state.errors[action.data.type].slice(0, action.data.index),
             ...state.errors[action.data.type].slice(action.data.index + 1)
         ];
-
+        console.log(action.data.index, state[action.data.type], members);
         return {
             ...state, [action.data.type]: members, errors: {
             ...state.errors, [action.data.type]: errors
