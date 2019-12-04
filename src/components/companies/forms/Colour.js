@@ -4,15 +4,16 @@ import * as PropTypes from 'prop-types'
 import {Close} from "@material-ui/icons";
 import {withStyles} from "@material-ui/core";
 import {ColorWrap, Saturation, Hue, Checkboard} from 'react-color/lib/components/common'
-import {DialogActions, DialogContent, DialogTitle, IconButton, Button, Dialog} from "@material-ui/core";
+import {DialogActions, DialogContent, DialogTitle, TextField, IconButton, Button, Dialog} from "@material-ui/core";
 
+import color from 'react-color/lib/helpers/color';
 import ChromePointer from 'react-color/lib/components/chrome/ChromePointer'
 import ChromePointerCircle from 'react-color/lib/components/chrome/ChromePointerCircle'
 
 import styles from "../../../styles/companies/colour-form";
 
 
-class _Palette extends React.Component {
+class Palette extends React.Component {
     render() {
         const {renderers, classes, onChange, hex, hsl, hsv} = this.props;
 
@@ -52,10 +53,22 @@ class _Palette extends React.Component {
     }
 }
 
-_Palette = ColorWrap(_Palette);
-_Palette.propTypes = {
+Palette = ColorWrap(Palette);
+Palette.propTypes = {
     classes: PropTypes.object.isRequired,
 };
+
+/**
+ * The wrapper class 'ColorPicker' of react-color uses the deprecated
+ * componentWillReceiveProps. This small monkey patch will make sure
+ * that the logic is up-to date and compatible with react 17.x.
+ */
+Palette.getDerivedStateFromProps = function(props, state) {
+    return {...state, ...color.toState(props.color, state.oldHue)};
+};
+
+delete Palette.prototype["componentWillReceiveProps"];
+
 
 export class ChromePaletteDialog extends React.Component {
     constructor(props) {
@@ -107,11 +120,13 @@ export class ChromePaletteDialog extends React.Component {
                     </DialogTitle>
 
                     <DialogContent>
-                        <_Palette
+                        <Palette
                             color={this.state.active}
                             classes={classes}
                             onChange={c => this.setState({active: c.hex})}
                         />
+
+                        <TextField value={this.state.active.toUpperCase()} fullWidth />
                     </DialogContent>
 
                     <DialogActions>

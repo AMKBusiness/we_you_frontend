@@ -1,25 +1,16 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 
-import {Delete} from "@material-ui/icons";
 import {connect} from 'react-redux';
-import {TextField, Button, Card, Grid, CardContent, CardHeader} from "@material-ui/core";
+import {CardContent, CardHeader, Card, Grid} from "@material-ui/core";
 
-import {ColourDialogForm, LogoForm, Submit} from "./forms";
+import {ColourDialogForm, LogoForm, NameForm, Submit} from "./forms";
 
-import {set_colour, set_name} from "../../actions/companies";
+import {set_colour} from "../../actions/companies";
 import {EmployeesForm, EmployersForm} from "./forms/Staff";
 
 
 class Create extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            name: props.name,
-        }
-    }
 
     render() {
         return (
@@ -31,16 +22,7 @@ class Create extends React.Component {
                             <CardHeader title="Algemeen" />
 
                             <CardContent>
-                                <TextField
-                                    label="Bedrijfs naam"
-                                    value={this.state.name  || ""}
-
-                                    onBlur={() => this.props.set_name(this.state.name || "")}
-                                    onChange={({target}) => this.setState({name: target.value})}
-
-                                    error={this.state.name === ""}
-                                    helperText={this.state.name === "" ? "Bedrijfsnaam mag niet leeg zijn" : ""}
-                                />
+                                <NameForm />
                             </CardContent>
                         </Card>
                     </Grid>
@@ -78,7 +60,7 @@ class Create extends React.Component {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <LogoForm title="Logo" onChange={logo => this.setState({logo})} />
+                        <LogoForm title="Logo" />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
@@ -98,19 +80,11 @@ class Create extends React.Component {
     }
 }
 
-Create.propTypes = {
-};
-
-Create.defaultProps = {
-
-};
-
 const mapStateToProps = state => ({
     theme: PropTypes.object.isRequired,
 });
 
 const mapDispatchToProps = {
-    set_name,
     set_colour,
 };
 

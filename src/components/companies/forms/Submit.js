@@ -28,11 +28,11 @@ class Submit extends React.Component {
 }
 
 Submit.propTypes = {
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     logo: PropTypes.object,
 
     theme: PropTypes.object.isRequired,
-    errors: PropTypes.array.isRequired,
+    errors: PropTypes.object.isRequired,
 
     employers: PropTypes.array.isRequired,
     employees: PropTypes.array.isRequired,
