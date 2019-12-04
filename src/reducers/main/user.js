@@ -3,7 +3,7 @@ import {AUTHENTICATION_RESTORE, SET_CURRENT_USER} from "../types";
 const initialState = {
     id: null,
     email: null,
-    group: null,
+    group: -1,
 };
 
 

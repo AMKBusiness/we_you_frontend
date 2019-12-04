@@ -18,7 +18,7 @@ import ActionSelector from "../components/utils/ActionSelector";
 
 import {CompaniesCreate, CompaniesDigest} from "../components/companies";
 
-import { GeneralChart } from "../components/charts";
+// import { GeneralChart } from "../components/charts";
 
 import {initialize_user} from "../actions/user";
 
@@ -88,7 +88,7 @@ class Main extends React.Component {
 
                         <Switch>
                             <Route path="/main/dashboard/">
-                                <GeneralChart />
+                                {/*<GeneralChart />*/}
                             </Route>
 
                             <Route path="/main/companies/">
