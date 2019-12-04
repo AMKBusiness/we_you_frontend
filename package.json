@@ -9,6 +9,8 @@
     "clsx": "latest",
     "connected-react-router": "^6.5.2",
     "create-react-app": "^3.1.2",
+    "devextreme": "^19.2.4",
+    "devextreme-react": "^19.2.4",
     "history": "latest",
     "prop-types": "latest",
     "react": "^16.9.0",

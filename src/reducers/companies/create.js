@@ -91,6 +91,5 @@ export default function(state = initialState, action) {
         return {...state, errors: {...state.errors, [action.data.type]: errors}};
     }
 
-
     return state;
 }

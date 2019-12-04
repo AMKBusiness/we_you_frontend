@@ -6,7 +6,7 @@ import page from "./main/page";
 import theme from "./main/theme";
 
 import companies from "./companies";
-
+import dashboard from "./dashboard";
 
 export default combineReducers({
     auth,
@@ -15,4 +15,5 @@ export default combineReducers({
     theme,
 
     companies,
+    dashboard,
 });
