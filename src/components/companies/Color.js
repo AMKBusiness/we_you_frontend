@@ -28,9 +28,7 @@ import {
 } from "@material-ui/core";
 
 
-import styles from "../../../styles/companies/colour-form";
-
-import {set_colour} from "../../../actions/companies";
+import styles from "../../styles/companies/colour-form";
 
 
 class Palette extends React.Component {
@@ -83,7 +81,7 @@ Palette.propTypes = {
  * componentWillReceiveProps. This small monkey patch will make sure
  * that the logic is up-to date and compatible with react 17.x.
  */
-Palette.getDerivedStateFromProps = function(props, state) {
+Palette.getDerivedStateFromProps = function (props, state) {
     return {...state, ...color.toState(props.color, state.oldHue)};
 };
 
@@ -96,9 +94,10 @@ export class ChromePaletteDialog extends React.Component {
 
         this.state = {
             open: false,
+            input: null,
 
-            stored: props.defaultColour,
-            active: props.defaultColour,
+            stored: props.value,
+            active: props.value,
         }
     }
 
@@ -108,7 +107,7 @@ export class ChromePaletteDialog extends React.Component {
             stored: state.active,
         }));
 
-        this.props.set_colour(this.props.spectrum, this.state.active);
+        this.props.onChange && this.props.onChange(this.state.active)
     }
 
     onClose() {
@@ -135,7 +134,7 @@ export class ChromePaletteDialog extends React.Component {
                             onClick={this.onClose.bind(this)}
                             className={classes.DialogCloseButton}
                         >
-                            <Close />
+                            <Close/>
                         </IconButton>
                     </DialogTitle>
 
@@ -146,7 +145,21 @@ export class ChromePaletteDialog extends React.Component {
                             onChange={c => this.setState({active: c.hex})}
                         />
 
-                        <TextField value={this.state.active.toUpperCase()} fullWidth />
+                        <TextField
+                            value={this.state.input !== null ? this.state.input : this.state.active.toUpperCase()}
+                            onBlur={() => this.setState({input: null})}
+                            onChange={({target: {value}}) => {
+                                value = "#" + value.slice(0, 7).toUpperCase().replace(/[^0-9A-F]/g, "");
+
+                                if (/#[0-9A-F]{6}/.test(value))
+                                    this.setState({input: value, active: value})
+
+                                else
+                                    this.setState({input: value})
+                            }}
+
+                            fullWidth={true}
+                        />
                     </DialogContent>
 
                     <DialogActions>
@@ -166,27 +179,12 @@ export class ChromePaletteDialog extends React.Component {
 }
 
 ChromePaletteDialog.propTypes = {
-    spectrum: PropTypes.string.isRequired,
-    defaultColour: PropTypes.string,
+    value: PropTypes.string,
+    onChange: PropTypes.func,
 };
 
 ChromePaletteDialog.defaultProps = {
-    defaultColour: "#22194D",
+    value: "#22194D",
 };
 
-ChromePaletteDialog = withStyles(styles)(ChromePaletteDialog);
-
-export const PrimaryColourDialog = connect(
-    state => ({defaultColour: state.companies.create.theme.primary}), {set_colour}
-)(
-    props => (
-        React.createElement(ChromePaletteDialog, {...props, spectrum: "primary"})
-    )
-);
-
-export const AccentColourDialog = connect(
-    state => ({defaultColour: state.companies.create.theme.accent}), {set_colour}
-)(
-    props => (
-        React.createElement(ChromePaletteDialog, {...props, spectrum: "accent"}))
-);
+export default withStyles(styles)(ChromePaletteDialog);

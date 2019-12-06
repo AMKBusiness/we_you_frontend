@@ -1,7 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 
-import {connect} from 'react-redux';
 import {
     LinearProgress,
     CardContent,
@@ -19,11 +18,10 @@ import {
 
 import {CloudUpload, Clear} from "@material-ui/icons";
 
-import styles from "../../../styles/companies/logo-form";
+import styles from "../../styles/companies/logo-form";
 
-import {set_logo} from "../../../actions/companies";
 
-class Logo extends React.Component {
+class ImageInput extends React.Component {
 
     constructor(props) {
         super(props);
@@ -38,6 +36,14 @@ class Logo extends React.Component {
         };
     }
 
+    change(data, path, mime) {
+        if (data.indexOf(',') !== -1)
+            data = data.slice(data.indexOf(',') + 1);
+
+        this.setState({data, path, mime});
+        this.props.input.onChange({data, path, mime})
+    }
+
     handle(file) {
         if (!file.type.startsWith("image/")) {
             this.setState({message: "Bestand moet een afbeelding zijn"});
@@ -48,9 +54,9 @@ class Logo extends React.Component {
 
         reader.readAsDataURL(file);
 
-        reader.onload = ({target}) => {
-            this.props.set_logo(file.name, file.type, target.result);
-        };
+        reader.onload = ({target: {result}}) => (
+            this.change(result, file.name, file.type)
+        )
 
         reader.onprogress = ({loaded, total}) => this.setState({
             process: Math.round((loaded / total) * 100)
@@ -82,18 +88,22 @@ class Logo extends React.Component {
 
     onClear() {
         this.setState({
+            data: null,
+            path: null,
+            type: null,
+
             process: 0,
             message: "",
         });
 
-        this.props.set_logo(null, null, null);
+        this.props.input.onChange({data: null, path: null, type: null})
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (props.data !== null && props.name !== null && props.mime !== null)
-            return {...state, process: 100};
+        if (props.input.value === null || props.input.value === undefined || props.input.value === "")
+            return state;
 
-        return state;
+        return {...state, ...props.input.value, process: 100};
     }
 
     render() {
@@ -129,7 +139,7 @@ class Logo extends React.Component {
                                 <label className={classes.UploadWrapper} htmlFor="form-input-logo">
                                     {
                                         this.state.process === 100 ?
-                                            <Avatar className={classes.UploadIcon} src={this.props.data}/>
+                                            <Avatar className={classes.UploadIcon} src={`data:${this.state.mime};base64,${this.state.data}`}/>
                                             :
                                             <Avatar className={classes.UploadIcon}>
                                                 <CloudUpload/>
@@ -141,8 +151,8 @@ class Logo extends React.Component {
 
                             <Grid container direction="column" alignItems="stretch" item xs={8} sm={7} md={10}>
                                 <TextField
-                                    value={this.props.path !== null ? this.props.path : ""}
-                                    disabled={this.props.path === null}
+                                    value={this.state.path !== null ? this.state.path : ""}
+                                    disabled={this.state.path === null}
                                     onChange={({target}) => this.setState({path: target.value})}
                                 />
 
@@ -157,7 +167,7 @@ class Logo extends React.Component {
                             </Grid>
 
                             <Grid container item xs={2} sm={3} md={1} justify="center">
-                                <Button variant="contained" onClick={this.onClear.bind(this)} disabled={!this.props.data}>
+                                <Button variant="contained" onClick={this.onClear.bind(this)} disabled={!this.state.data}>
                                     <Clear/>
                                 </Button>
                             </Grid>
@@ -171,30 +181,14 @@ class Logo extends React.Component {
 }
 
 
-Logo.propTypes = {
-    path: PropTypes.string,
-    mime: PropTypes.string,
-    data: PropTypes.string,
-
+ImageInput.propTypes = {
+    meta: PropTypes.object,
+    input: PropTypes.object,
     title: PropTypes.string,
 };
 
-Logo.defaultProps = {
-    path: null,
-    mime: null,
-    data: null,
-
+ImageInput.defaultProps = {
     title: null,
 };
 
-const mapStateToProps = state => ({
-    path: state.companies.create.logo.path,
-    mime: state.companies.create.logo.mime,
-    data: state.companies.create.logo.data,
-});
-
-const mapDispatchToProps = {
-    set_logo,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Logo));
+export default withStyles(styles)(ImageInput);
