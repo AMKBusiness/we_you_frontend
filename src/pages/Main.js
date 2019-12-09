@@ -17,8 +17,8 @@ import Navigator from "../components/main/Navigator";
 import ActionSelector from "../components/utils/ActionSelector";
 
 import {CompaniesCreate, CompaniesDigest} from "../components/companies";
-
-import { GeneralChart } from "../components/charts";
+import {AnswerCreate, AnswerDigest} from "../components/answers";
+import {GeneralChart} from "../components/charts";
 
 import {initialize_user} from "../actions/user";
 
@@ -93,12 +93,22 @@ class Main extends React.Component {
 
                             <Route path="/main/companies/">
                                 <ActionSelector action="create">
-                                    <CompaniesCreate />
+                                    <CompaniesCreate/>
                                 </ActionSelector>
 
                                 <ActionSelector action="digest" default={true}>
-                                    <CompaniesDigest />
+                                    <CompaniesDigest/>
                                 </ActionSelector>
+                            </Route>
+
+                            <Route path={'/main/answers/'}>
+                                <ActionSelector action='create'>
+                                    <AnswerCreate/>
+                                </ActionSelector>
+                                <ActionSelector action='digest' default={true}>
+                                    <AnswerDigest/>
+                                </ActionSelector>
+
                             </Route>
 
                         </Switch>

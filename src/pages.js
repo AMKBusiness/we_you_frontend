@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Settings, Business, Home } from "@material-ui/icons";
+import {Settings, Business, Home, QuestionAnswer} from "@material-ui/icons";
 
 import groups from "./groups";
 
@@ -38,7 +38,7 @@ export const pages = [
             {
                 name: 'Bedrijven',
                 page: "companies",
-                icon: <Business />,
+                icon: <Business/>,
                 groups: [
                     groups.admin,
                     groups.management,
@@ -46,6 +46,19 @@ export const pages = [
                 actions: [
                     {label: "Bedrijven overzicht", value: "digest"},
                     {label: "Bedrijf aanmaken", value: "create"},
+                ]
+            },
+            {
+                name: 'Vragen',
+                page: "answers",
+                icon: <QuestionAnswer/>,
+                groups: [
+                    groups.admin,
+                    groups.management,
+                ],
+                actions: [
+                    {label: "Overzicht antwoordsetten", value: "digest"},
+                    {label: "Antwoordset aanmaken", value: "create"},
                 ]
             },
         ],
