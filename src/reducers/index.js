@@ -7,12 +7,14 @@ import theme from "./main/theme";
 
 import companies from "./companies";
 import dashboard from "./dashboard";
+import answers from "./answers";
 
 export default combineReducers({
     auth,
     user,
     page,
     theme,
+    answers,
 
     companies,
     dashboard,

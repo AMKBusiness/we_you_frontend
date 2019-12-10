@@ -56,7 +56,7 @@ class ImageInput extends React.Component {
 
         reader.onload = ({target: {result}}) => (
             this.change(result, file.name, file.type)
-        )
+        );
 
         reader.onprogress = ({loaded, total}) => this.setState({
             process: Math.round((loaded / total) * 100)

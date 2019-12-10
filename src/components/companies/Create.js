@@ -4,12 +4,13 @@ import {connect} from 'react-redux';
 
 import CompanyForm from "./Form";
 
-import {create_company} from "../../actions/companies";
+// import {create_company} from "../../actions/companies";
 
 class Create extends React.Component {
 
     onSubmit(values) {
-        this.props.create_company(values);
+        console.log(values)
+        // this.props.create_company(values);
     }
 
     render() {
@@ -19,4 +20,4 @@ class Create extends React.Component {
     }
 }
 
-export default connect(null, {create_company})(Create);
+export default connect(null)(Create);

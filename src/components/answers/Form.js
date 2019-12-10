@@ -1,6 +1,9 @@
 import React from 'react';
 
 import * as PropTypes from "prop-types";
+import {connect} from 'react-redux';
+import {withStyles} from '@material-ui/styles';
+import styles from '../../styles/answers/form';
 
 import {Form, Field} from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
@@ -9,8 +12,22 @@ import {TextField} from 'final-form-material-ui';
 import {Add, Delete} from '@material-ui/icons';
 import {Grid, Card, CardContent, CardHeader, Button, IconButton, Tooltip} from '@material-ui/core';
 
+import {loadStyles} from '../../actions/answers'
 
 class AnswerForm extends React.PureComponent {
+    constructor(props) {
+        super(props);
+
+        this.state = {}
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.styles === null) {
+            props.loadStyles()
+        }
+        return state;
+    }
+
     render() {
         return (
             <Form
@@ -41,35 +58,37 @@ class AnswerForm extends React.PureComponent {
                                         <Grid container>
                                             <FieldArray name='values'>
                                                 {({fields}) => (
-                                                    <Grid item xs={12} spacing={1}>
+                                                    <Grid item xs={12}>
                                                         {fields.map((name, index) => (
-                                                                <Grid container item xs={12}>
-                                                                    <Grid container item xs={10}>
-                                                                        <Field
-                                                                            name={`${name}.label`}
-                                                                            label={`antwoord ${index + 1}`}
-                                                                            component={TextField}
-                                                                            fullWidth={true}
-                                                                        />
-                                                                        <Field
-                                                                            name={`${name}.order`}
-                                                                            type='hidden'
-                                                                            component="input"
-                                                                            initialValue={index}
-                                                                        />
-                                                                    </Grid>
-                                                                    <Tooltip title={`verwijder antwoord ${index + 1}`}>
+                                                            <Grid container item xs={12} spacing={1} key={index}>
+                                                                <Grid container item xs={11}>
+                                                                    <Field
+                                                                        name={`${name}.label`}
+                                                                        label={`antwoord ${index + 1}`}
+                                                                        component={TextField}
+                                                                        fullWidth={true}
+                                                                    />
+                                                                    <Field
+                                                                        name={`${name}.order`}
+                                                                        type='hidden'
+                                                                        component="input"
+                                                                        initialValue={index}
 
-                                                                        <Grid item xs={2}>
-                                                                            <IconButton
-                                                                                onClick={() => fields.remove(index)}
-                                                                                color='secondary'
-                                                                            >
-                                                                                <Delete/>
-                                                                            </IconButton>
-                                                                        </Grid>
+
+                                                                    />
+                                                                </Grid>
+
+                                                                <Grid item xs={1}>
+                                                                    <Tooltip title={`verwijder antwoord ${index + 1}`}>
+                                                                        <IconButton
+                                                                            onClick={() => fields.remove(index)}
+                                                                            color='primary'
+                                                                        >
+                                                                            <Delete/>
+                                                                        </IconButton>
                                                                     </Tooltip>
                                                                 </Grid>
+                                                            </Grid>
 
 
                                                             )
@@ -87,7 +106,9 @@ class AnswerForm extends React.PureComponent {
                             <Grid item xs={12}>
                                 <Card>
                                     <CardContent>
-                                        <Button type='submit' fullWidth={true} variant='contained'
+
+                                        <Button className={this.props.classes.SaveButton} type='submit' fullWidth={true}
+                                                variant='contained'
                                                 color='primary'>Save</Button>
                                     </CardContent>
                                 </Card>
@@ -104,4 +125,8 @@ AnswerForm.propTypes = {
     initialValues: PropTypes.object,
 };
 
-export default AnswerForm;
+const mapStateToProps = (state) => ({
+    styles: state.answers.init.styles
+});
+
+export default connect(mapStateToProps, {loadStyles})(withStyles(styles)(AnswerForm));
