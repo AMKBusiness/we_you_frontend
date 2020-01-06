@@ -1,7 +1,9 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 
-import {CardContent, Grid} from "@material-ui/core";
+import {Grid} from "@material-ui/core";
+
+import {Field} from "react-final-form";
 
 import ColorInput from "./Color";
 
@@ -16,19 +18,19 @@ class ThemeForm extends React.Component {
         }
     }
 
-    static getDerivedStateFromProps(props, state) {
-        if (props.input.value === undefined || props.input.value === null || props.input.value === "")
-            return state;
+    // static getDerivedStateFromProps(props, state) {
+    //     if (props.input.value === undefined || props.input.value === null || props.input.value === "")
+    //         return state;
+    //
+    //     return {...state, ...props.input.value};
+    // }
 
-        return {...state, ...props.input.value};
-    }
-
-    callback(spectrum) {
-        return value => {
-            this.setState({[spectrum]: value});
-            this.props.input.onChange({...this.state, [spectrum]: value});
-        }
-    }
+    // callback(spectrum) {
+    //     return value => {
+    //         this.setState({[spectrum]: value});
+    //         this.props.input.onChange({...this.state, [spectrum]: value});
+    //     }
+    // }
 
     render() {
         return (
@@ -38,7 +40,11 @@ class ThemeForm extends React.Component {
                         <b>Primaire kleur</b>
                     </Grid>
                     <Grid item xs={8}>
-                        <ColorInput onChange={this.callback("primary")} value={this.state.primary}/>
+                        <Field
+                            name="theme.primary"
+                            component={ColorInput}
+                            initialValue="#E94248"
+                        />
                     </Grid>
                 </Grid>
 
@@ -47,7 +53,11 @@ class ThemeForm extends React.Component {
                         <b>Secundaire kleur</b>
                     </Grid>
                     <Grid item xs={8}>
-                        <ColorInput onChange={this.callback("accent")} value={this.state.accent}/>
+                        <Field
+                            name="theme.accent"
+                            component={ColorInput}
+                            initialValue="#26223D"
+                        />
                     </Grid>
                 </Grid>
             </React.Fragment>
@@ -55,10 +65,7 @@ class ThemeForm extends React.Component {
     }
 }
 
-ThemeForm.propTypes = {
-    meta: PropTypes.object.isRequired,
-    input: PropTypes.object.isRequired,
-};
+ThemeForm.propTypes = {};
 
 ThemeForm.defaultProps = {};
 

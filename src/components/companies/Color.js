@@ -117,6 +117,13 @@ export class ChromePaletteDialog extends React.Component {
         }))
     }
 
+    static getDerivedStateFromProps(props, state) {
+        if (!props.input.value || props.input.value !== "")
+            return {...state, stored: props.input.value, active: props.input.value};
+
+        return state;
+    }
+
     render() {
         const {classes} = this.props;
 
@@ -152,7 +159,7 @@ export class ChromePaletteDialog extends React.Component {
                                 value = "#" + value.slice(0, 7).toUpperCase().replace(/[^0-9A-F]/g, "");
 
                                 if (/#[0-9A-F]{6}/.test(value))
-                                    this.setState({input: value, active: value})
+                                    this.setState({input: value, active: value});
 
                                 else
                                     this.setState({input: value})

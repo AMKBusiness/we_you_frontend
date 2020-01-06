@@ -46,10 +46,12 @@ class CompanyForm extends React.PureComponent {
                                     <CardHeader title="Thema"/>
 
                                     <CardContent>
-                                        <Field
-                                            name="theme"
-                                            component={ThemeForm}
-                                        />
+                                        {/*<Field*/}
+                                        {/*    name="theme"*/}
+                                        {/*    component={ThemeForm}*/}
+                                        {/*    // defaultValue={{primary: "#E94248", accent: "#26223D"}}*/}
+                                        {/*/>*/}
+                                        <ThemeForm />
                                     </CardContent>
                                 </Card>
                             </Grid>

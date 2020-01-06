@@ -26,7 +26,7 @@ class StaffForm extends React.PureComponent {
 
                 <CardContent>
                     <Grid container>
-                        <FieldArray name={this.props.name}>
+                        <FieldArray initialValue={[]} name={this.props.name}>
                             {({fields}) => fields.map((name, index) => (
                                 <Grid container item key={index} xs={12}>
                                     <Grid item xs={10}>
