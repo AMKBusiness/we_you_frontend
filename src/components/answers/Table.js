@@ -10,17 +10,22 @@ class TableView extends React.Component {
 
     render() {
         return (
-            <>
-                <Table container>
+            <Paper>
+                <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell>Naam antwoordset</TableCell>
-                            <TableCell>Aantal Vragen</TableCell>
-
+                            <TableCell>Aantal antwoorden</TableCell>
+                            <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
+                    <TableBody>
+                        <TableCell>this is a test</TableCell>
+                        <TableCell>this is a test</TableCell>
+                        <TableCell>Button for edit delete and view</TableCell>
+                    </TableBody>
                 </Table>
-            </>
+            </Paper>
         );
     }
 }

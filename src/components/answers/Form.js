@@ -5,21 +5,35 @@ import {connect} from 'react-redux';
 import {withStyles} from '@material-ui/styles';
 import styles from '../../styles/answers/form';
 
-import {Form, Field} from 'react-final-form';
+import {Form, Field, FormSpy} from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import {FieldArray} from 'react-final-form-arrays';
 import {TextField} from 'final-form-material-ui';
 import {Add, Delete} from '@material-ui/icons';
-import {Grid, Card, CardContent, CardHeader, Button, IconButton, Tooltip} from '@material-ui/core';
+import {
+    Grid,
+    Card,
+    CardContent,
+    CardHeader,
+    Button,
+    IconButton,
+    Tooltip,
+    Slider
+
+} from '@material-ui/core';
 
 import {loadStyles} from '../../actions/answers'
 
 class AnswerForm extends React.PureComponent {
+
     constructor(props) {
         super(props);
+        this.state = {
+            selected: 'slider'
+        };
 
-        this.state = {}
     }
+
 
     static getDerivedStateFromProps(props, state) {
         if (props.styles === null) {
@@ -28,8 +42,27 @@ class AnswerForm extends React.PureComponent {
         return state;
     }
 
+
     render() {
+        function SliderSelected() {
+            return <h1>Welcome back!</h1>;
+        }
+
+        function RadioSelected() {
+            return <h1>Please sign up.</h1>;
+        }
+
+        function Example(props, state) {
+            // console.log(state);
+            if (state.selected === 'slider') {
+                return <SliderSelected/>
+            } else {
+                return <RadioSelected/>
+            }
+        }
+
         return (
+
             <Form
                 onSubmit={this.props.onSubmit}
                 mutators={arrayMutators}
@@ -51,48 +84,73 @@ class AnswerForm extends React.PureComponent {
                                     </CardContent>
                                 </Card>
                             </Grid>
-                            <Grid item xs={12}>
+
+                            <Grid container item xs={3}>
+                                <Grid>
+                                    <Card>
+                                        <CardHeader title='Soort vraag'/>
+                                        <CardContent>
+                                            <input
+                                                type='radio'
+                                                id='slider'
+                                                name='style'
+                                                value='slider'
+                                                checked={this.state.selected === 'slider'}
+                                                onClick={(e) => this.setState({selected: "slider"})}
+                                            /> Slider <br/>
+                                            <input
+                                                type='radio'
+                                                id='radio'
+                                                name='style'
+                                                value='radio'
+                                                checked={this.state.selected === 'radio'}
+                                                onClick={(e) => this.setState({selected: "radio"})}
+                                            /> Radio
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={9}>
                                 <Card>
                                     <CardHeader title='Antwoorden'/>
                                     <CardContent>
                                         <Grid container>
-                                            <FieldArray name='values'>
+                                            <FieldArray initialValue={[]} name='values'>
                                                 {({fields}) => (
                                                     <Grid item xs={12}>
                                                         {fields.map((name, index) => (
-                                                            <Grid container item xs={12} spacing={1} key={index}>
-                                                                <Grid container item xs={11}>
-                                                                    <Field
-                                                                        name={`${name}.label`}
-                                                                        label={`antwoord ${index + 1}`}
-                                                                        component={TextField}
-                                                                        fullWidth={true}
-                                                                    />
-                                                                    <Field
-                                                                        name={`${name}.order`}
-                                                                        type='hidden'
-                                                                        component="input"
-                                                                        initialValue={index}
+                                                                <Grid container item xs={12} spacing={1} key={index}>
+                                                                    <Grid container item xs={11}>
+                                                                        <Field
+                                                                            name={`${name}.label`}
+                                                                            label={`antwoord ${index + 1}`}
+                                                                            component={TextField}
+                                                                            fullWidth={true}
+                                                                        />
+                                                                        <Field
+                                                                            name={`${name}.order`}
+                                                                            type='hidden'
+                                                                            component="input"
+                                                                            initialValue={index}
+                                                                        />
+                                                                    </Grid>
 
-
-                                                                    />
+                                                                    <Grid item xs={1}>
+                                                                        <Tooltip title={`verwijder antwoord ${index + 1}`}>
+                                                                            <IconButton
+                                                                                onClick={() => fields.remove(index)}
+                                                                                color='primary'
+                                                                            >
+                                                                                <Delete/>
+                                                                            </IconButton>
+                                                                        </Tooltip>
+                                                                    </Grid>
                                                                 </Grid>
-
-                                                                <Grid item xs={1}>
-                                                                    <Tooltip title={`verwijder antwoord ${index + 1}`}>
-                                                                        <IconButton
-                                                                            onClick={() => fields.remove(index)}
-                                                                            color='primary'
-                                                                        >
-                                                                            <Delete/>
-                                                                        </IconButton>
-                                                                    </Tooltip>
-                                                                </Grid>
-                                                            </Grid>
 
 
                                                             )
                                                         )}
+
                                                         <Button onClick={() => fields.push()} fullWidth={true}
                                                                 color='primary'><Add/></Button>
                                                     </Grid>
@@ -100,6 +158,24 @@ class AnswerForm extends React.PureComponent {
                                                 }
                                             </FieldArray>
                                         </Grid>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Card>
+                                    <CardHeader title='Voorbeeld'/>
+
+                                    <CardContent>
+
+                                        <Example/>
+                                        {/*<FormSpy subscription={{values: true}}>*/}
+                                        {/*    {*/}
+                                        {/*        ({values: {values}}) => (*/}
+                                        {/*            <Slider min={0} max={100} marks step={100 / (values.length - 1)}/>*/}
+                                        {/*        )*/}
+                                        {/*    }*/}
+                                        {/*</FormSpy>*/}
+
                                     </CardContent>
                                 </Card>
                             </Grid>
@@ -114,8 +190,11 @@ class AnswerForm extends React.PureComponent {
                                 </Card>
                             </Grid>
                         </Grid>
+
                     </form>
                 )}/>
+
+
         );
     }
 }
